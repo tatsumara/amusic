@@ -1,13 +1,14 @@
 const { Client, Collection, Intents } = require('discord.js');
 const { readdirSync } = require('fs');
 const chalk = require('chalk');
-const functions = require('../modules/functions.js');
+const functions = require('./modules/functions.js');
 require('dotenv').config();
 
 const intents = [
 	Intents.FLAGS.GUILDS,
 	Intents.FLAGS.GUILD_MEMBERS,
 	Intents.FLAGS.GUILD_MESSAGES,
+	Intents.FLAGS.GUILD_VOICE_STATES,
 ];
 
 const client = new Client({ retryLimit: 3, intents: intents });
@@ -36,6 +37,10 @@ client.on('messageCreate', async (message) => {
 
 	const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 	if (!command) return;
+
+	if (command.args && !args.length) {
+		return message.channel.send(functions.simpleEmbed('Please provide at least one argument!', '', '#FFA500'));
+	}
 
 	await message.channel.sendTyping();
 
