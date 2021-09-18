@@ -12,17 +12,42 @@ module.exports = {
 		if (!voiceChannel) {
 			return message.channel.send(functions.simpleEmbed('No voice channel!', 'You have to connect to a voice channel to use this command.', '#FF0000'));
 		}
+
 		const connection = joinVoiceChannel({
 			channelId: voiceChannel.id,
 			guildId: voiceChannel.guild.id,
 			adapterCreator: voiceChannel.guild.voiceAdapterCreator,
 		});
-		const stream = await playdl.stream(args[0]);
+
+		const info = await playdl.video_basic_info(args[0]);
+		const stream = await playdl.stream_from_info(info);
 		const player = createAudioPlayer();
 		const resource = createAudioResource(stream.stream, {
 			inputType: stream.type,
 		});
 		connection.subscribe(player);
 		player.play(resource);
+
+		const playerEmbed = {
+			title: 'Now playing:',
+			url: info.video_details.url,
+			description: `"${info.video_details.title}"`,
+			fields: [
+				{
+					name: 'Length:',
+					value: info.video_details.durationRaw,
+					inline: true,
+				},
+				{
+					name: 'Upload date:',
+					value: info.video_details.uploadedDate,
+					inline: true,
+				},
+			],
+			footer: {
+				text: info.video_details.channel.name,
+			},
+		};
+		return message.channel.send({ embeds: [playerEmbed] });
 	},
 };
