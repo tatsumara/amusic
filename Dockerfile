@@ -7,7 +7,7 @@ WORKDIR /usr/src/altair-music
 COPY package.json ./
 RUN npm install
 
-RUN apt install ffmpeg
+RUN apk add --no-cache ffmpeg
 
 # copy bot to work dir
 COPY . ./
