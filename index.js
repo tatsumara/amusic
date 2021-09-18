@@ -42,8 +42,6 @@ client.on('messageCreate', async (message) => {
 		return message.channel.send(functions.simpleEmbed('Please provide at least one argument!', '', '#FFA500'));
 	}
 
-	await message.channel.sendTyping();
-
 	console.log(chalk.yellow(`[cmnd] ${message.author.tag} ran '${command.name} ${args.join(' ')}'`));
 	try {
 		await command.execute(client, message, args, functions);
