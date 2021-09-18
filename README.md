@@ -1,9 +1,9 @@
-# Altair Music Bot
+# altair music bot
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-somewhat-yellow.svg)](https://github.com/tatsumara/altair-music/graphs/commit-activity)
 [![Author](https://img.shields.io/badge/Author-tatsumara-purple.svg)](https://shields.io/)
 
-This is the Altair music bot! I decided to make music functionality a separate bot altogether, as this is quite a massive undertaking.
+This is the music bot to accompany [altair](https://github.com/tatsumara/altair)! I decided to make music functionality a separate bot altogether, as this is quite a massive undertaking.
 
 ## Usage example
 Requires ``ffmpeg`` to be installed on your system, unless you're using the docker image.
