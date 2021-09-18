@@ -7,7 +7,7 @@ This is the Altair music bot! I decided to make music functionality a separate b
 
 ## Usage example
 Requires ``ffmpeg`` to be installed on your system, unless you're using the docker image.
-This bot is not at all functional currently! I have *not* implemented *any* functionality, this currently just serves as a placeholder.
+This bot is not at all functional currently! I have *barely* implemented *any* functionality, this currently mostly serves as a placeholder.
 ## TODO
 * Get basic play functionality to work
 * Implement queue system
