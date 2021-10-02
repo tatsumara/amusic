@@ -1,4 +1,4 @@
-const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus, VoiceConnectionStatus } = require('@discordjs/voice');
+const voice = require('@discordjs/voice');
 const playdl = require('play-dl');
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
 			return message.channel.send(functions.simpleEmbed('No voice channel!', 'You have to connect to a voice channel to use this command.', '#FF0000'));
 		}
 
-		const connection = joinVoiceChannel({
+		const connection = voice.joinVoiceChannel({
 			channelId: voiceChannel.id,
 			guildId: voiceChannel.guild.id,
 			adapterCreator: voiceChannel.guild.voiceAdapterCreator,
@@ -21,8 +21,8 @@ module.exports = {
 
 		const info = await playdl.video_basic_info(args[0]);
 		const stream = await playdl.stream_from_info(info);
-		const player = createAudioPlayer();
-		const resource = createAudioResource(stream.stream, {
+		const player = voice.createAudioPlayer();
+		const resource = voice.createAudioResource(stream.stream, {
 			inputType: stream.type,
 		});
 		connection.subscribe(player);
@@ -45,7 +45,7 @@ module.exports = {
 				},
 			],
 			footer: {
-				text: info.video_details.channel.name,
+				text: info.video_details.channel.name || 'Unknown',
 			},
 		};
 		return message.channel.send({ embeds: [playerEmbed] });
